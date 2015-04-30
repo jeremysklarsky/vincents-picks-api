@@ -283,6 +283,7 @@ DEPENDENCIES
   rails-erd
   rails4-autocomplete
   responders (~> 2.0)
+  rest-client
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

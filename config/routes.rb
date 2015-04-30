@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   namespace :api do
     resources :movies,  :only => ['show', 'index'], defaults: {format: :json}
     resources :critics, :only => ['show', 'index'], defaults: {format: :json}
@@ -8,7 +9,6 @@ Rails.application.routes.draw do
 
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
