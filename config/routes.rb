@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  devise_for :users
+  
   namespace :api do
     resources :movies,  :only => ['show', 'index'], defaults: {format: :json}
     resources :critics, :only => ['show', 'index'], defaults: {format: :json}
