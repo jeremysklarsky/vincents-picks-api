@@ -14,10 +14,13 @@ module Api
 
 
     def create
+
       @user = User.new(user_params)
       if @user.save
+        binding.pry
         render :nothing => true, :status => 200
       else
+        binding.pry
         render json: get_resource.errors, status: :unprocessable_entity
       end      
     end
