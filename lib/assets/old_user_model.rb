@@ -1,28 +1,28 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  validates :auth_token, uniqueness: true
-  before_create :generate_authentication_token!
-
+  
   include Averageable::InstanceMethods, ToParamable
-
+  #old validations
+  # validates :auth_token, uniqueness: true
+  # validates_uniqueness_of :email
+  # validates_presence_of :name, :email
+  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  # has_secure_password
+  # validates :password, 
+  #        # you only need presence on create
+  #        :presence => { :on => :create },
+  #        # allow_nil for length (presence will handle it on create)
+  #        :length   => { :minimum => 6, :allow_nil => true },
+  #        # and use confirmation to ensure they always match
+  #        :confirmation => true
   #associations       
-  has_many :reviews, :foreign_key => 'user_id', :class_name => "UserReview", dependent: :destroy
+  has_many :reviews, :foreign_key => 'user_id', :class_name => "UserReview"
   has_many :movies, :through => :reviews
-  has_many :similarity_scores, dependent: :destroy
+  has_many :similarity_scores
+  #callbacks
+  before_save :slugify
+  #read/write methods
+  attr_accessor :top_critic, :bottom_critic, :avg_percentile, :reviews_by_genre
 
-  attr_accessor :password_confirmation
-
-  def generate_authentication_token!
-    begin
-      self.auth_token = Devise.friendly_token
-    end while self.class.exists?(auth_token: auth_token)
-  end
-
-  #my methods
 
   def gather_critics
     critic_matcher.find_user_critics
@@ -228,5 +228,9 @@ class User < ActiveRecord::Base
     avg_scores.sort_by {|key, value| value}.reverse.to_h
   end
 
-  
 end
+
+
+
+
+  

@@ -2,6 +2,7 @@ module Api
   class BaseController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :set_resource, only: [:destroy, :show, :update]
+    skip_before_filter  :verify_authenticity_token
     respond_to :json
 
     # POST /api/{plural_resource_name}

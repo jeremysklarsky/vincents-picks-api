@@ -2,6 +2,8 @@ class UserReview < ActiveRecord::Base
   belongs_to :user
   belongs_to :movie
 
+  validates :user_id, presence: true
+
   after_save :update_similarity_score
 
   def update_similarity_score

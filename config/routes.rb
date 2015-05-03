@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
 
 
+  devise_for :users
+  
   namespace :api do
     resources :movies,  :only => ['show', 'index'], defaults: {format: :json}
     resources :critics, :only => ['show', 'index'], defaults: {format: :json}
-    resources :users, defaults: {format: :json}
+    resources :users, defaults: {format: :json}, :except => ['new'] do 
+      get 'stats' => 'users#stats', defaults: {format: :json}
+      resources :reviews, defaults: {format: :json}, :only => ['new', 'edit', 'create', 'update', 'index'], :controller => "users/reviews" 
+      end
+
   end
 
 

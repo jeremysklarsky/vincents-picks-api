@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'devise'
 gem 'figaro'
 gem 'unirest'
 gem "rails-erd"
