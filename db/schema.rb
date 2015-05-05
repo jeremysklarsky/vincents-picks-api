@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501121842) do
+ActiveRecord::Schema.define(version: 20150503192145) do
 
   create_table "critic_publications", force: :cascade do |t|
     t.integer  "critic_id"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20150501121842) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "auth_token",             default: ""
+    t.string   "slug"
   end
 
   add_index "users", ["auth_token"], name: "index_users_on_auth_token", unique: true

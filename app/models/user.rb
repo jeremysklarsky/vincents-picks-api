@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :auth_token, uniqueness: true
+  validates :slug, uniqueness: true
   before_create :generate_authentication_token!
+  before_create :slugify
 
   include Averageable::InstanceMethods, ToParamable
 
@@ -13,7 +15,6 @@ class User < ActiveRecord::Base
   has_many :reviews, :foreign_key => 'user_id', :class_name => "UserReview", dependent: :destroy
   has_many :movies, :through => :reviews
   has_many :similarity_scores, dependent: :destroy
-
   attr_accessor :password_confirmation
 
   def generate_authentication_token!

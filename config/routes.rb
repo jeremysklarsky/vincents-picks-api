@@ -2,8 +2,11 @@ Rails.application.routes.draw do
 
 
   devise_for :users
-  
+ 
+
+
   namespace :api do
+    resources :sessions, :only => ['create', 'destroy'], defaults: {format: :json}
     resources :movies,  :only => ['show', 'index'], defaults: {format: :json}
     resources :critics, :only => ['show', 'index'], defaults: {format: :json}
     resources :users, defaults: {format: :json}, :except => ['new'] do 

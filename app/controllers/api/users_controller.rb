@@ -17,7 +17,6 @@ module Api
 
       @user = User.new(user_params)
       if @user.save
-        binding.pry
         render :nothing => true, :status => 200
       else
         binding.pry
